@@ -51,6 +51,13 @@
     document.body.classList.toggle("mobile-drawer-open", Boolean(name));
   }
 
+  function shouldOpenInspectorDrawer(card) {
+    if (!document.body.classList.contains("mobile-drawers-ready")) return false;
+    if (!card || card.closest(".setup-panel")) return false;
+    if (!card.closest(".board, .rail--left, .rail--right")) return false;
+    return true;
+  }
+
   function syncDrawers() {
     const appShell = document.querySelector(".app-shell");
     const workspace = document.querySelector(".workspace");
@@ -92,5 +99,11 @@
     if (event.key === "Escape") {
       setDrawer("");
     }
+  });
+
+  document.addEventListener("click", (event) => {
+    const card = event.target.closest(".compact-bird");
+    if (!shouldOpenInspectorDrawer(card)) return;
+    window.setTimeout(() => setDrawer("left"), 40);
   });
 })();

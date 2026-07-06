@@ -1,0 +1,391 @@
+:root {
+  --mobile-card-width: min(18rem, 82vw);
+  --mobile-board-card-width: min(13rem, 72vw);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+}
+
+@media (max-width: 900px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .app-shell {
+    height: auto;
+    min-height: 100vh;
+    gap: 0.75rem;
+    padding: max(0.75rem, env(safe-area-inset-top))
+      max(0.75rem, env(safe-area-inset-right))
+      calc(1rem + env(safe-area-inset-bottom))
+      max(0.75rem, env(safe-area-inset-left));
+    overflow: visible;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    padding: 0.85rem;
+    border-radius: 1.15rem;
+    backdrop-filter: blur(16px);
+  }
+
+  .topbar__title h1 {
+    font-size: 1.35rem;
+  }
+
+  .topbar__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .topbar__stat,
+  .topbar__stat--round,
+  .topbar__stat--status,
+  .topbar__stat--food {
+    min-width: 0;
+    max-width: none;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .topbar__stat span {
+    font-size: 0.58rem;
+    margin-bottom: 0.16rem;
+  }
+
+  .topbar__stat strong {
+    font-size: 0.82rem;
+    white-space: normal;
+  }
+
+  .topbar__actions {
+    justify-content: stretch;
+    flex-wrap: wrap;
+  }
+
+  .topbar__actions > * {
+    flex: 1 1 9rem;
+  }
+
+  .topbar__select {
+    gap: 0.2rem;
+    font-size: 0.58rem;
+  }
+
+  .topbar__select select,
+  .topbar__new-game,
+  .topbar__actions .mini-button--ghost {
+    min-height: 2.8rem;
+    font-size: 0.9rem;
+  }
+
+  .workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .board {
+    order: 1;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-rows: none;
+    padding-inline: 0;
+  }
+
+  .rail--right {
+    order: 2;
+    display: grid;
+    grid-template-rows: none;
+    gap: 0.75rem;
+  }
+
+  .rail--left {
+    order: 3;
+    display: grid;
+    grid-template-rows: none;
+    gap: 0.75rem;
+  }
+
+  .panel,
+  .lane,
+  .inspector {
+    padding: 0.75rem;
+    border-radius: 1.15rem;
+  }
+
+  .panel--composer,
+  .panel--shared,
+  .panel--hand,
+  .inspector {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .lane {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .lane__meta {
+    order: -1;
+    gap: 0.55rem;
+    padding: 0.75rem;
+  }
+
+  .lane__summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .action-button--lane {
+    width: 100%;
+    min-height: 3.25rem;
+    font-size: 0.95rem;
+  }
+
+  .lane__tracks {
+    gap: 0.65rem;
+  }
+
+  .track {
+    gap: 0.3rem;
+  }
+
+  .track__label {
+    font-size: 0.72rem;
+  }
+
+  .track__slots,
+  .hand-list,
+  .tray-grid,
+  .setup-panel .setup-grid,
+  .setup-panel .tray-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--mobile-card-width);
+    grid-template-columns: none;
+    gap: 0.65rem;
+    padding-bottom: 0.3rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .track__slots {
+    grid-auto-columns: var(--mobile-board-card-width);
+    justify-content: start;
+  }
+
+  .track__slots > *,
+  .hand-list > *,
+  .tray-grid > *,
+  .setup-panel .setup-grid > *,
+  .setup-panel .tray-grid > * {
+    scroll-snap-align: start;
+  }
+
+  .compact-bird,
+  .compact-bird--setup,
+  .compact-bird--hand,
+  .compact-bird--choice,
+  .compact-bird--shared {
+    min-height: 6rem;
+  }
+
+  .compact-bird--board,
+  .empty-slot--lane {
+    width: 100%;
+    min-width: var(--mobile-board-card-width);
+    height: auto;
+    min-height: 7.4rem;
+  }
+
+  .compact-bird--board {
+    grid-template-columns: minmax(0, 1fr) 4rem;
+    gap: 0.3rem;
+  }
+
+  .compact-bird--board .bird-art {
+    min-height: 3.3rem;
+  }
+
+  .compact-bird--board .bird-art__sprite {
+    width: 74px;
+    height: 50px;
+  }
+
+  .compact-bird__score,
+  .compact-bird--board .compact-bird__score {
+    font-size: 1.8rem;
+  }
+
+  .compact-bird__identity strong,
+  .compact-bird--board .compact-bird__identity strong {
+    font-size: 0.84rem;
+  }
+
+  .compact-bird__line,
+  .compact-bird--board .compact-bird__line {
+    font-size: 0.64rem;
+    line-height: 1.3;
+  }
+
+  .composer-grid,
+  .composer-pills,
+  .panel__header,
+  .lane__header,
+  .score-card__meta,
+  .score-breakdown,
+  .inspector__actions,
+  .inspector__stats,
+  .food-row {
+    gap: 0.45rem;
+  }
+
+  .composer-grid > *,
+  .composer-pills > *,
+  .inspector__actions > * {
+    flex: 1 1 9rem;
+  }
+
+  .mini-button,
+  .mini-button--play,
+  .action-button {
+    min-height: 2.8rem;
+    font-size: 0.92rem;
+  }
+
+  .inspector__hero {
+    grid-template-columns: 1fr;
+  }
+
+  .inspector .bird-art {
+    height: auto;
+    min-height: 10rem;
+  }
+
+  .score-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .score-breakdown span,
+  .score-card__meta span,
+  .food-pill,
+  .lane__summary span,
+  .inspector__stats span {
+    font-size: 0.68rem;
+  }
+
+  .modal-shell {
+    align-items: end;
+    padding: 0.5rem;
+  }
+
+  .modal-card,
+  .modal-card--cpu,
+  .modal-card--gameover {
+    width: min(100%, 42rem);
+    max-height: 92vh;
+    border-radius: 1.2rem;
+  }
+
+  .gameover-hero,
+  .gameover-grid,
+  .gameover-topline,
+  .gameover-card__meta,
+  .gameover-breakdown {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --mobile-card-width: 86vw;
+    --mobile-board-card-width: 78vw;
+  }
+
+  .app-shell {
+    padding-inline: 0.55rem;
+  }
+
+  .topbar {
+    padding: 0.7rem;
+  }
+
+  .topbar__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar__actions > * {
+    flex-basis: 100%;
+  }
+
+  .topbar__actions .mini-button--ghost svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .panel,
+  .lane,
+  .inspector {
+    padding: 0.65rem;
+  }
+
+  .lane__meta {
+    padding: 0.7rem;
+  }
+
+  .track__label {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .compact-bird,
+  .compact-bird--setup,
+  .compact-bird--hand,
+  .compact-bird--choice,
+  .compact-bird--shared {
+    grid-template-columns: minmax(0, 1fr) 3.4rem;
+  }
+
+  .compact-bird__body {
+    gap: 0.22rem;
+  }
+
+  .compact-bird__score {
+    font-size: 1.6rem;
+  }
+
+  .bird-art {
+    min-height: 2.6rem;
+  }
+
+  .panel__header,
+  .lane__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .composer-grid > *,
+  .composer-pills > *,
+  .inspector__actions > * {
+    flex-basis: 100%;
+  }
+}

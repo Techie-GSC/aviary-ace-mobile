@@ -89,12 +89,10 @@ svg {
 }
 
 .topbar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
+  position: relative;
   display: grid;
-  gap: 0.75rem;
-  padding: 0.8rem;
+  gap: 0.55rem;
+  padding: 0.7rem;
 }
 
 .topbar h1,
@@ -137,25 +135,29 @@ svg {
 }
 
 .topbar__title h1 {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
 }
 
 .topbar__stats {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.45rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
 }
 
 .topbar__stat {
   display: grid;
   gap: 0.15rem;
-  padding: 0.65rem 0.7rem;
+  padding: 0.45rem 0.55rem;
   border-radius: var(--radius-sm);
   background: var(--surface-2);
 }
 
+.topbar__stat--food {
+  grid-column: 1 / -1;
+}
+
 .topbar__stat span {
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -163,20 +165,22 @@ svg {
 }
 
 .topbar__stat strong {
-  font-size: 0.95rem;
-  line-height: 1.25;
+  font-size: 0.84rem;
+  line-height: 1.18;
   word-break: break-word;
 }
 
 .topbar__actions {
   display: grid;
-  gap: 0.45rem;
+  grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+  gap: 0.4rem;
+  align-items: end;
 }
 
 .topbar__select {
   display: grid;
-  gap: 0.28rem;
-  font-size: 0.7rem;
+  gap: 0.22rem;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -186,10 +190,32 @@ svg {
 .topbar__select select,
 .mini-button,
 .action-button {
-  min-height: 2.9rem;
-  padding: 0.7rem 0.9rem;
+  min-height: 2.65rem;
+  padding: 0.6rem 0.8rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--line);
+}
+
+.topbar__actions .mini-button--ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar__actions > .mini-button--ghost:first-child {
+  width: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0;
+}
+
+.topbar__actions > .mini-button--ghost:first-child svg,
+.topbar__actions > .mini-button--ghost:first-child img {
+  width: 1rem;
+  height: 1rem;
+}
+
+.topbar__new-game {
+  white-space: nowrap;
 }
 
 .topbar__select select,
@@ -261,6 +287,23 @@ svg {
 .track__label strong,
 .track__label span {
   margin: 0;
+}
+
+.panel--hand .panel__header::after,
+.panel--shared .panel__header::after,
+.track__label::after {
+  content: "Swipe";
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: #fff;
 }
 
 .lane {
@@ -401,8 +444,9 @@ svg {
   justify-content: start;
   gap: 0.6rem;
   overflow-x: auto;
-  padding-bottom: 0.2rem;
+  padding: 0 0.75rem 0.2rem 0;
   scroll-snap-type: x proximity;
+  scrollbar-width: none;
 }
 
 .track__slots {
@@ -415,11 +459,26 @@ svg {
   grid-auto-columns: min(18rem, 86vw);
 }
 
+.setup-grid,
+.tray-grid {
+  grid-auto-flow: row;
+  grid-template-columns: 1fr;
+  justify-content: stretch;
+  overflow-x: visible;
+  padding-right: 0;
+}
+
 .track__slots > *,
 .hand-list > *,
 .tray-grid > *,
 .setup-grid > * {
   scroll-snap-align: start;
+}
+
+.track__slots::after,
+.hand-list::after {
+  content: "";
+  width: 0.75rem;
 }
 
 .compact-bird,
@@ -441,9 +500,9 @@ svg {
 .compact-bird--shared,
 .compact-bird--board {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 4rem;
-  gap: 0.6rem;
-  padding: 0.7rem;
+  grid-template-columns: minmax(0, 1fr) 3.4rem;
+  gap: 0.5rem;
+  padding: 0.6rem;
   border: 1px solid var(--line);
   background: #fff;
   color: var(--text);
@@ -474,7 +533,7 @@ svg {
 }
 
 .compact-bird__score {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   line-height: 0.9;
   font-weight: 800;
 }
@@ -492,14 +551,14 @@ svg {
 }
 
 .compact-bird__identity strong {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   line-height: 1.15;
 }
 
 .compact-bird__line {
   margin: 0;
-  font-size: 0.69rem;
-  line-height: 1.28;
+  font-size: 0.64rem;
+  line-height: 1.22;
   white-space: normal;
   overflow: visible;
 }
@@ -520,7 +579,7 @@ svg {
 
 .bird-art {
   width: 100%;
-  min-height: 4rem;
+  min-height: 3.25rem;
   border-radius: 12px;
   display: grid;
   place-items: center;
@@ -529,8 +588,8 @@ svg {
 }
 
 .bird-art__sprite {
-  width: 76px;
-  height: 54px;
+  width: 60px;
+  height: 44px;
   object-fit: contain;
 }
 
@@ -593,7 +652,7 @@ svg {
 }
 
 .score-card {
-  padding: 0.8rem;
+  padding: 0.7rem;
 }
 
 .score-breakdown {
@@ -634,10 +693,27 @@ svg {
 }
 
 .setup-key {
-  padding: 0.7rem;
+  padding: 0.6rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--line);
   background: var(--surface-2);
+}
+
+.setup-panel {
+  gap: 0.65rem;
+}
+
+.setup-panel__body {
+  gap: 0.65rem;
+}
+
+.setup-panel__footer {
+  padding-top: 0.2rem;
+}
+
+.setup-panel .action-button {
+  min-height: 3.2rem;
+  font-size: 1rem;
 }
 
 .modal-shell {
@@ -711,15 +787,6 @@ svg {
 }
 
 @media (min-width: 560px) {
-  .topbar__stats {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .topbar__actions {
-    grid-template-columns: auto 1fr auto;
-    align-items: end;
-  }
-
   .track__slots {
     grid-auto-columns: 15.5rem;
   }
